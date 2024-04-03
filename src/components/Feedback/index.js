@@ -1,54 +1,71 @@
 // Write your React code here.
-import './index.css'
-
 import {Component} from 'react'
 
-class Feedback extends Component {
-  state = {isfeedBack: true}
+import './index.css'
 
-  onClicked = () => {
-    this.setState({isfeedBack: false})
+class Feedback extends Component {
+  state = {
+    isFeedbackSelected: false,
   }
 
-  renderFeedBack = () => {
+  onClickEmoji = () => this.setState({isFeedbackSelected: true})
+
+  renderFeedbackQuestion = () => {
     const {resources} = this.props
     const {emojis} = resources
+
     return (
-      <div className="bg-container">
-        <div className="card">
-          <h1>How satisfied are you with our customer support performance</h1>
-          <ul>
-            {emojis.map(item => (
-              <li key={item.id}>
-                <button type="button" onClick={this.onClicked}>
-                  <img src={item.imageUrl} alt={item.name} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="feedback-question-container">
+        <h1 className="feedback-question">
+          How satisfied are you with our customer support performance?
+        </h1>
+        <ul className="emojis-list">
+          {emojis.map(emoji => (
+            <li key={emoji.id}>
+              <button
+                type="button"
+                className="emoji-btn"
+                onClick={this.onClickEmoji}
+              >
+                <img src={emoji.imageUrl} alt={emoji.name} className="emoji" />
+                <br />
+                <span className="emoji-name">{emoji.name}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }
 
-  renderThankYou = () => {
+  renderThankYouScreen = () => {
     const {resources} = this.props
     const {loveEmojiUrl} = resources
+
     return (
-      <div className="bg-container">
-        <div className="card">
-          <h1>Thank You</h1>
-          <img src={loveEmojiUrl} alt="love emoji" />
-        </div>
+      <div className="thank-you-container">
+        <img src={loveEmojiUrl} alt="love emoji" className="love-emoji" />
+        <h1 className="thank-you-text">Thank You!</h1>
+        <p className="description">
+          We will use your feedback to improve our customer support performance.
+        </p>
       </div>
     )
   }
 
   render() {
-    const {isfeedBack} = this.state
+    const {isFeedbackSelected} = this.state
+
     return (
-      <div>{isfeedBack ? this.renderFeedBack() : this.renderThankYou()}</div>
+      <div className="app-container">
+        <div className="feedback-card">
+          {isFeedbackSelected
+            ? this.renderThankYouScreen()
+            : this.renderFeedbackQuestion()}
+        </div>
+      </div>
     )
   }
 }
+
 export default Feedback
