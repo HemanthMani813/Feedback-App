@@ -1,0 +1,16 @@
+/* Write your CSS code here. */
+.bg-container{
+    background-image: linear-gradient(to right,#ffeeee,#ffc0bb);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.card{
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+}
